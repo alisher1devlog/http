@@ -24,3 +24,16 @@ export async function getBook() {
         throw new Error(err)
     }
 };
+
+export async function saveBook(book) {
+    try {
+        const books = await getAllBooks();
+        const newBook = {id: books.length + 1, ...book};
+        books.push(newBook);
+
+        fs.writeFile(booksFilePath,JSON.stringify(books));
+        return books;
+    } catch (error) {
+        throw new Error(error)
+    }
+};
