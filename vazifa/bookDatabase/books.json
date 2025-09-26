@@ -1,20 +1,26 @@
 [
-    {
-        "id": 1,
-        "title": "Node.js Asoslari",
-        "author": "John Doe",
-        "year": 2024
-    },
-    {
-        "id": 2,
-        "title": "Yulduzli tunlar ",
-        "author": "Primqul Qodirov",
-        "year": 1985
-    },
-    {
-        "id": 3,
-        "title": "O'tgan kunlar",
-        "author": "O'tkir Hoshimov",
-        "year": 1980
-    }
+  {
+    "id": 1,
+    "title": "Node.js Asoslari",
+    "author": "John Doe",
+    "year": 2024
+  },
+  {
+    "id": 3,
+    "title": "O'tgan kunlar",
+    "author": "O'tkir Hoshimov",
+    "year": 1980
+  },
+  {
+    "id": 4,
+    "title": "Ikki eshik orasi",
+    "author": "O'tkir Hoshimov",
+    "year": 1985
+  },
+  {
+    "id": 5,
+    "title": "dunyoning ishlari",
+    "author": "O'tkir Hoshimov",
+    "year": 1970
+  }
 ]

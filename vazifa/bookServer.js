@@ -1,6 +1,7 @@
 import http from "node:http";
 import { json } from "node:stream/consumers";
-import { getAllBooks, saveBook } from "./db.js";
+import { getAllBooks, saveBook, updateBook,delBook } from "./db.js";
+import { error } from "node:console";
 
 const server = http.createServer(async (req, res) => {
     const method = req.method.toLowerCase();
@@ -42,8 +43,41 @@ const server = http.createServer(async (req, res) => {
                 throw new Error(error);
             }
         });
-    } else if(method === "put" && url.startsWith("/books/")){
-        
+    } else if (method === "put" && url.startsWith("/books/")) {
+        const id = Number(url.split("/")[2]);
+
+        let body = "";
+        req.on("data", (chunk) => {
+            body += chunk;
+        });
+
+        req.on("end", async () => {
+            try {
+                const data = JSON.parse(body);
+                const updatedBook = await updateBook(id, data);
+                res.writeHead(200, { "content-type": "application/json" });
+                res.write(JSON.stringify(updatedBook));
+                res.end();
+            } catch (err) {
+                res.writeHead(404, { "content-type": "application/json" });
+                res.end(JSON.stringify({ error: err.message }))
+            }
+
+        })
+    } else if (method === "delete" && url.startsWith("/books/")) {
+        const id = Number(url.split("/")[2]);
+        try {
+            const deletedBook = await delBook(id);
+            res.writeHead(200, { "content-type": "application/json" });
+            res.end(JSON.stringify({ message: "Deleted successfully", deletedBook }));
+        } catch (err) {
+            res.writeHead(404, { "content-type": "application/json" });
+            res.end(JSON.stringify({ error: err.message }));
+        }
+
+    } else {
+        res.writeHead(404, { "content-type": "application/json" });
+        res.end(JSON.stringify({ error: "Route not found" }));
     }
 });
 
